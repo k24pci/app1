@@ -5,6 +5,7 @@ import com.ucx.training.sessions.app1.businesslogic.Company;
 import com.ucx.training.sessions.app1.businesslogic.Employee;
 import com.ucx.training.sessions.app1.businesslogic.Gender;
 import com.ucx.training.sessions.app1.persistence.InMemoryDB;
+import com.ucx.training.sessions.app1.persistence.InMemoryDBImpl;
 
 import java.util.*;
 
@@ -26,7 +27,7 @@ public class Application {
 
         Company company = new Company(1, "Best Company", employees);
         //Save Company to InMemoryDB
-        InMemoryDB db = new InMemoryDB();
+        InMemoryDB db = PersistenceFactory.getInMemoryDBInstance();
         db.create(company);
         //Retrieve a company from DB
         Company foundCompany = db.finById(1);

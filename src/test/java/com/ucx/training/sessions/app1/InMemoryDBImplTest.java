@@ -1,16 +1,17 @@
 package com.ucx.training.sessions.app1;
 
 import com.ucx.training.sessions.app1.businesslogic.Company;
-import com.ucx.training.sessions.app1.persistence.InMemoryDB;
+import com.ucx.training.sessions.app1.persistence.InMemoryDBImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class InMemoryDBTest {
+public class InMemoryDBImplTest
+{
     @Test
     public void testCreate(){
         Company company = MockData.getCompany();
-        InMemoryDB db = new InMemoryDB();
+        InMemoryDBImpl db = new InMemoryDBImpl();
         db.create(company);
         Company foundCompany = db.finById(company.getId());
         assertNotNull(foundCompany);
@@ -20,13 +21,13 @@ public class InMemoryDBTest {
 
     @Test(expected = RuntimeException.class)
     public void testCreate_whenCompanyIsNull(){
-        InMemoryDB db = new InMemoryDB();
+        InMemoryDBImpl db = new InMemoryDBImpl();
         db.create(null);
     }
 
     @Test(expected = RuntimeException.class)
     public void testFind_whenIdIsNull(){
-        InMemoryDB db = new InMemoryDB();
+        InMemoryDBImpl db = new InMemoryDBImpl();
         db.finById(null);
     }
 }

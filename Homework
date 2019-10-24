@@ -1,0 +1,11 @@
+1. Implement method for calculating wage of an Employee
+    double calculateWage(double workingHoursPerMonth)
+
+*Define an enum type Position(PROGRAMMER(1), QA(2), PM(10) etc.)
+    1, 2, 10 - indicate pay per hour(payPerHour)
+
+2. Rename(Refactor) create method to createOrUpdate in InMemoryDB
+    create(Company company) -> createOrUpdate(Company company)
+
+3. Implement remove functionality to be supported by InMemoryDB
+    void remove(Integer id)

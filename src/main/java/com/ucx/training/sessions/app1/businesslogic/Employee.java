@@ -3,14 +3,14 @@ package com.ucx.training.sessions.app1.businesslogic;
 public class Employee {
     private String firstName;
     private String lastName;
-    private String position;
     private Gender gender;
     private Address address;
+    private Position position;
 
-    public Employee(){
+    public Employee(String steve, String bald, String qa, Gender male, Address address1){
     }
 
-    public Employee(String firstName, String lastName, String position, Gender gender, Address address)
+    public Employee(String firstName, String lastName, Position position, Gender gender, Address address)
     {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,12 +39,12 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public String getPosition()
+    public Position getPosition()
     {
         return position;
     }
 
-    public void setPosition(String position)
+    public void setPosition(Position position)
     {
         this.position = position;
     }
@@ -67,5 +67,9 @@ public class Employee {
     public void setAddress(Address address)
     {
         this.address = address;
+    }
+
+    public double calculateWage(double workingHoursPerMonth){
+        return workingHoursPerMonth * position.getPayPerHour();
     }
 }

@@ -1,11 +1,16 @@
 package com.ucx.training.sessions.app1;
 
 import com.ucx.training.sessions.app1.businesslogic.*;
+import com.ucx.training.sessions.app1.exception.CompanyNotFoundException;
 import com.ucx.training.sessions.app1.repository.InMemoryDB;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Application {
+    private static final Logger LOGGER = Logger.getLogger(Application.class.getName());
+
     public static void main(String[] args) {
         List<Employee> employees = new ArrayList<>();
 
@@ -27,12 +32,31 @@ public class Application {
         InMemoryDB db = PersistenceFactory.getInMemoryDBInstance();
         db.createOrUpdate(company);
         //Retrieve a company from DB
-        Company foundCompany = db.finById(1);
-        System.out.println("Company ID: " + foundCompany.getId() + " Company Name: " + foundCompany.getName() + " Nr of employees: " + foundCompany.getEmployees().size());
+        Company foundCompany = null;
+        try {
+            foundCompany = db.finById(1);
+        }catch (IllegalArgumentException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }catch (CompanyNotFoundException e){
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
+
+        if (foundCompany != null){
+            System.out.println("Company ID: " + foundCompany.getId() + " Company Name: " + foundCompany.getName() + " Nr of employees: " + foundCompany.getEmployees().size());
+        }
 
         db.remove(1);
-        Company foundCompany1 = db.finById(1);
-        System.out.println(foundCompany1);
+        Company foundCompany1 = null;
+        try {
+            foundCompany1 = db.finById(1);
+        } catch (CompanyNotFoundException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
 
+        if (foundCompany1 != null) {
+            System.out.println(foundCompany1);
+        }
     }
 }
